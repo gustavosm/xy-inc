@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -19,7 +21,21 @@ public class SwaggerConfig {
                 .select()                 
                 .apis(RequestHandlerSelectors.basePackage("br.com.gps.xyinc.controller"))
                 .paths(PathSelectors.regex("/point.*"))
-                .build();
+                .build()
+                .apiInfo(metaData());
              
+    }
+    
+
+    private ApiInfo metaData() {
+        ApiInfo apiInfo = new ApiInfo(
+                "XYInc Rest API",
+                "API Rest para manipulação de pontos de interesse",
+                "1.0",
+                "Terms of service",
+                new Contact("Gustavo Silveira", "https://www.linkedin.com/in/gustavo-silveira-marques-bb093ba4/", "guto_silveira_@hotmail.com"),
+               "Apache License Version 2.0",
+                "https://www.apache.org/licenses/LICENSE-2.0");
+        return apiInfo;
     }
 }

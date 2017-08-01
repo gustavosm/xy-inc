@@ -22,9 +22,8 @@ public class PointService {
 		try {
 			ValidationUtils.check(entity);
 			entity = pointRepository.save(entity);
-			Boolean ok = (entity.getId() != null);
 
-			if (ok) {
+			if (entity.getId() != null) {
 				return ResponseEntity.ok("Success");
 			} else {
 				return ResponseEntity.badRequest().body("Cannot save point: " + entity + ". Please try again later");
@@ -51,7 +50,7 @@ public class PointService {
 			ValidationUtils.isValidCoordinate("xCoordinate", xCoordinate);
 			ValidationUtils.isValidCoordinate("yCoordinate", yCoordinate);
 			Double maxDist = dMax * dMax;
-			
+
 			return ResponseEntity.ok(pointRepository.findClosestPoints(xCoordinate, yCoordinate, maxDist));
 		} catch (InputMismatchException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

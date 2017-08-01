@@ -3,6 +3,9 @@ package br.com.gps.xyinc.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
@@ -14,15 +17,19 @@ public class PointEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+    @ApiModelProperty(notes = "ID gerado pela base de dados")
 	private Long id;
 
 	@Column(name = "nm_poi")
+    @ApiModelProperty(notes = "Nome atribuido ao POI (Point Of Interest)")
 	private String poiName;
 
 	@Column(name = "x_coordinate")
+    @ApiModelProperty(notes = "Coordenada X do ponto em que o POI está localizado")
 	private Long xCoordinate;
 
 	@Column(name = "y_coordinate")
+    @ApiModelProperty(notes = "Coordenada Y do ponto em que o POI está localizado")
 	private Long yCoordinate;
 
 	public PointEntity() {
