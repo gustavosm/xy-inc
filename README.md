@@ -22,7 +22,7 @@ In order to get this project running, folow the steps bellow:
    
     2 - Install a MySQL Server on your computer listening in 3306 port. You can download it here (https://dev.mysql.com/downloads/installer/), or feel free to get from wherever you want;
     
-    3 - Log with root on MySQL Server and execute CreateUserDB.sql script, and then execute CreateDatabase.sql script on your MySQL Server;
+    3 - Login with root on MySQL Server and execute CreateUserDB.sql script, and then execute CreateDatabase.sql script on your MySQL Server;
 
     4 - Clone this repository using command-line: git clone https://github.com/gustavosm/xy-inc.git  or use an UI git to do this;
 
