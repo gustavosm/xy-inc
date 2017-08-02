@@ -18,7 +18,7 @@ This project is to manage points in a 2D plan, providing five basic operations:
 
 In order to get this project running, folow the steps bellow:
 
-     1 - Make sure your machine contains Maven, Git and JDK 1.8 installed. If you don't have it you may download Maven in (https://maven.apache.org/download.cgi), Git in (https://git-scm.com/downloads) and JDK in (http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html)
+    1 - Make sure your machine contains Maven, Git and JDK 1.8 installed. If you don't have it you may download Maven in (https://maven.apache.org/download.cgi), Git in (https://git-scm.com/downloads) and JDK in (http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html)
    
     2 - Install a MySQL Server on your computer listening in 3306 port. You can download it here (https://dev.mysql.com/downloads/installer/), or feel free to get from wherever you want;
     
