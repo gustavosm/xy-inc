@@ -26,16 +26,18 @@ public class XyIncRestController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Returns a point of interest, based on parameter: pointId")
-	public ResponseEntity<Object> find(@RequestParam("pointId") Long pointId) {
+	public ResponseEntity<Object> find(
+			@ApiParam(value = "POI's ID you want to get.") @RequestParam("pointId") Long pointId) {
 		return pointService.findOne(pointId);
 	}
-	
+
 	@DeleteMapping("/{pointId}")
 	@ApiOperation(value = "Removes the point of interest whose id is equal to pointId param.")
-	public ResponseEntity<String> delete(@PathVariable Long pointId) {
+	public ResponseEntity<String> delete(
+			@ApiParam(value = "POI's ID you want to delete.") @PathVariable Long pointId) {
 		return pointService.remove(pointId);
 	}
-	
+
 	@PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Saves a point of interest on data base.", response = ResponseEntity.class)
 	public ResponseEntity<Object> save(
@@ -58,5 +60,5 @@ public class XyIncRestController {
 			@ApiParam(value = "Maximun distance that points may be from reference point.") @RequestParam(value = "dMax") Double dMax) {
 		return pointService.findClosestPoints(xCoordinate, yCoordinate, dMax);
 	}
-	
+
 }
