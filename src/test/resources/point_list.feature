@@ -28,5 +28,5 @@ Feature: List on Point of Interest (POI)
 	
 	Examples:
     | xCoord | yCoord | distance | xCoord1 | yCoord1 | xCoord2 | yCoord2 |
-    |    -4	 |  2	  |     10.2 |    3	   |    4    |    50   |    28   |
-    |    50	 |  -29	  |     2.1	 |	  50   |   28    |   3     |    4    |
+    |    -4	 |  2	  |     10.2 |    6	   |    7    |    9    |    48   |
+    |    50	 |  -29	  |     2.1	 |	  50   |   21    |   6     |    9    |

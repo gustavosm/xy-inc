@@ -63,7 +63,7 @@ public class POITest {
 
 	@Then("^the point is removed from database$")
 	public void the_point_is_removed_from_database() throws Throwable {
-		ResponseEntity<String> result = pointService.remove(entity);
+		ResponseEntity<String> result = pointService.remove(entity.getId());
 		Assert.notNull(result, "Response cannot be null");
 		Assert.isTrue(result.getStatusCode().equals(HttpStatus.OK),
 				"Expected to return " + HttpStatus.OK + " but got " + result.getStatusCode());
@@ -150,7 +150,7 @@ public class POITest {
 		entityNotToGetClose = (PointEntity) pointService.save(entityNotToGetClose).getBody();
 	}
 
-	@When("^the client calls findClosestPoints on PointService to (\\d+) and (\\d+) given ([0-9.]+)$")
+	@When("^the client calls findClosestPoints on PointService to (-?\\d+) and (-?\\d+) given ([0-9.]+)$")
 	public void the_client_calls_findClosestPoints_on_PointService_to_and_given(Long xCoord, Long yCoord, Double dMax)
 			throws Throwable {
 		response = pointService.findClosestPoints(xCoord, yCoord, dMax);
@@ -177,8 +177,8 @@ public class POITest {
 
 	@Then("^remove two POIs from database$")
 	public void remove_two_POIs_from_database() throws Throwable {
-		pointService.remove(entityToGetClose);
-		pointService.remove(entityNotToGetClose);
+		pointService.remove(entityToGetClose.getId());
+		pointService.remove(entityNotToGetClose.getId());
 	}
 	/**************************************************
 	 * End Scenario: List all POIs closest

@@ -1,46 +1,52 @@
-# xy-inc
-XY Inc
-Para que o sistema possa ser executado localmente, faz-se necessário ter um banco MySQL rodando na máquina. Se você já tem uma instancia de um servidor MySQL rodando na sua máquina, pule estes passos, caso contrário, siga-os:
-	Instruções para instalação do banco MySQL utilizado para o Sistema Windows:
-		1 - Acesse o site: https://dev.mysql.com/downloads/installer/
-		2 - Role a barra para baixo, na aba "Generally Available (GA) Releases:" clique no primeiro botão de "Download";
-		3 - Role a barra para baixo, e clique em "No thanks, just start my download", ou se preferir faça login com a sua conta Oracle;
-		4 - Finalizado o download, execute o arquivo baixado;
-		5 - Se estiver de acordo com os termos de uso, marque a caixa do "I accept the licence terms" e em seguida clique em "Next";
-		6 - Selecione a opção "Custom" e em seguida clique em "Next";
-		7 - Na seção "MySQL Servers", expanda as opções até que chegue no nivel de escolher entre as versões x86 e x64. Escolha a apropriada ao seu sistema e clique na seta verde;
-		8 - Na seção "Applications", expanda a opção "MySQL Workbench", em seguida a opção "MySQL Workbench 6.3", em seguida selecione a opção "MySQL Workbench 6.3.9" e clique na seta verde;
-		9 - Clique em "Next";
-		10 - Se houver softwares necessários, para a instalação dos produtos, que não estejam instalados na máquina, os produtos que necessitam desses softwares aparecerão na tela. Clique sobre cada um deles e clique em "Execute" e siga os passos de instalação. 
-		11 - Terminadas as instações, volte ao Installer e aguarde com que ele identifique que tudo foi instalado. Clique em "Next" assim que possível.
-		12 - Clique em "Execute";
-		13 - É possível que a instalação falhe devido a dependências de softwares não instalados que o Installer não conseguiu identificar. Se na coluna "Status" vier escrito "Failed", clique em "Show Details" e observe qual software deve ser instalado. Por exemplo, busque por uma mensagem como esta: "This application requires Visual Studio 2013 Redistributable. Please install the Redistributable then run this installer again.". Instale o software necessário e execute os passos novamente a partir do passo 4. (Em geral as dependencias são o Visual Studio 2013 Redistributable (instale a versão 32 bits ainda que seu SO seja 64 bits) e o .NET Framework);
-		14 - Após a instalação do MySQL Server, o Installer apresentará uma tela com os tipos de servidores disponíveis: Selecione "Standalone MySQL Server / Classic MySQL Replication" e clique em "Next";
-		15 - Clique em "Next";
-		16 - Defina uma senha para o usuário root;
-		17 - Clique em "Add User";
-		18 - Em username coloque "xyinc" (sem aspas);
-		19 - Em Password coloque "xyinc" (sem aspas) e repita em "Confirm Password", em seguida clique em Ok;
-		20 - Clique em "Next" nesta tela, na seguinte e na seguinte, depois clique em "Execute";
-		21 - Clique em "Finish" e em seguida em "Next" -> "Finish".
+# XYInc GPS
 
-Abra o MySQL Workbench.
-Selecione a conexão denominada "Local instance MySQL..." ou se esta não existir crie uma seguindo os passos abaixo:
-	1 - Clique em "+" (botão que está a frente de MySQL Connections";
-	2 - Dê um nome para a conexão. Sugestão: Local instance;
-	3 - Clique em "Store in Vault...";
-	4 - Digite a senha do root e clique em Ok;
-	5 - Clique em Test Connection;
-	6 - Se a conexão for bem sucedida clique em Ok, e em seguida Ok novamente. Caso contrário reveja a instalação do MySQL Server.
+## Introduction
 
-Se você ainda não tiver criado o usuário "xyinc", siga os passos abaixo:
-	1 - Conecte no banco clicando duas vezes na conexão criada no Workbench;
-	2 - Execute, no Workbench, o script CreateUserDB.sql (selecione todo o script e pressione ctrl+enter);
+This project is to manage points in a 2D plan, providing three basic operations:
 
-Execute no Workbench o script: CreateDatabase.sql
+    1 - Insert a point into database;
 
--------------------------------------------------------------------------------------------------------------------------------------
+    2 - List all points stored in database;
 
-Para rodar o sistema:
-	1 - Faça o download do arquivo xyinc.jar contido na pasta target.
-	2 - Certifique-se de que tenha o Java 8 instalado na máquina. Se não tiver, baixe 
+    3 - List all points that are at most a certain distance far from a determined point. 
+
+## Installation
+
+In order to get this project running, folow the steps bellow:
+
+     1 - Make sure your machine contains maven, git and java 1.8 installed. If you don't have it you may download maven in [Maven](https://maven.apache.org/download.cgi), Git in [Git](https://git-scm.com/downloads) and Java in [JDK](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html)
+   
+    2 - Install a MySQL Server on your computer. You can download it here [MySQL](https://dev.mysql.com/downloads/installer/), or feel free to get from wherever you want;
+    
+    3 - Execute CreateUserDB.sql script, and then execute CreateDatabase.sql script on your MySQL Server;
+
+    4 - Clone this repository using command-line git: git clone https://github.com/gustavosm/xy-inc.git
+
+    5 - Navigate to the directory containing pom.xml and execute: mvn clean install
+    
+    6 - In this directory, execute: mvn spring-boot:run
+    
+    7 - You may access it from: http://localhost:8080/swagger-ui.html Or you may use it from your favorite http client.
+
+## Testing Samples
+
+    1 - There are five routes: POST /point/save, GET /point/findAll, GET /point/findClosest?xCoordinate=&yCoordinate=&dMax=, GET /point?pointId=, DELETE /point/{pointId}
+   
+    2 - POST /point/save expects a JSON like:
+		
+		{
+  			"id": 0, //can be ommited - if present system will try to update this point
+ 			"poiName": "string",
+  			"xCoordinate": 0,
+  			"yCoordinate": 0
+		}
+    	
+	If everything goes fine, the new object will be returned with 200 OK. Else some 400 Bad Request may be returned telling user what causes the error.
+
+    3 - GET /point/findAll returns a list of points. Points are serialized as JSON (just like the JSON above). If everything goes fine, a list will be returned with 200 OK, else some 400 Bad Request may be returned telling user what causes the error.
+
+    4 - GET /point/findClosest?xCoordinate=&yCoordinate=&dMax= returns a list of points thats up to dMax distance from point (xCoordinate, yCoordinate). If everything goes fine, a list will be returned with 200 OK, else some 400 Bad Request may be returned telling user what causes the error.
+
+    5 - GET /point?pointId= expects to receive an idas query param of some existing point. If everything goes fine, a point will be returned with 200 OK, else some 400 Bad Request may be returned telling user what causes the error.
+    
+    6 - DELETE /point/{pointId} expects to receive an idas path param of some existing point. If everything goes fine, a "Success" message will be returned with 200 OK, else some 400 Bad Request may be returned telling user what causes the error.

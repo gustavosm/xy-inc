@@ -73,22 +73,39 @@ public class PointService {
 			return ResponseEntity.ok(closestPoints);
 		} catch (InvalidPointException e) {
 			log.error("Input: (" + xCoordinate + ", " + yCoordinate + "), didn't pass through validation: " + e.toString());
-			return ResponseEntity.badRequest().body(e.getMessage());
+			return ResponseEntity.badRequest().body(e);
 		} catch (Exception e) {
 			log.error("Exception thrown: " + e.getMessage());
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 	
-	public ResponseEntity<String> remove(PointEntity entity) {
+	public ResponseEntity<String> remove(Long pointId) {
 		try {
 			log.info("Method: remove");
-			pointRepository.delete(entity);
-			log.info(entity + " removed successfully.");
+			if (pointId == null) {
+				log.warn("pointId cannot be null. Aborting...");
+				return ResponseEntity.badRequest().body("Parameter: pointId cannot be null.");
+			}
+			pointRepository.delete(pointId);
+			log.info(pointId + " removed successfully.");
 			return ResponseEntity.ok("Success");
 		} catch (Exception e) {
 			log.error("Exception thrown: " + e.getMessage());
-			return ResponseEntity.badRequest().body("Could not remove this point: " + entity + ". Reason: " + e.getMessage());
+			return ResponseEntity.badRequest().body("Could not remove point with ID: " + pointId + ". Reason: " + e.getMessage());
+		}
+	}
+	
+	public ResponseEntity<Object> findOne(Long pointId) {
+		
+		try {
+			log.info("Method: findOne");
+			PointEntity point = pointRepository.findOne(pointId);
+			log.info("Point: " + point);
+			return ResponseEntity.ok(point);
+		} catch (Exception e) {
+			log.error("Could not get point with ID: " + pointId + ". Reason: " + e.getMessage());
+			return ResponseEntity.badRequest().body("Could not get point with ID: " + pointId + ". Reason: " + e.getMessage());
 		}
 	}
 }

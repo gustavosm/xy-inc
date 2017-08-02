@@ -3,7 +3,9 @@ package br.com.gps.xyinc.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,18 @@ public class XyIncRestController {
 	@Autowired
 	private PointService pointService;
 
+	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiOperation(value = "Retorna um ponto de interesse, baseado no ID passado")
+	public ResponseEntity<Object> find(@RequestParam("pointId") Long pointId) {
+		return pointService.findOne(pointId);
+	}
+	
+	@DeleteMapping("/{pointId}")
+	@ApiOperation(value = "Remove the point of interest whose id is equal to pointId param.")
+	public ResponseEntity<String> delete(@PathVariable Long pointId) {
+		return pointService.remove(pointId);
+	}
+	
 	@PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Salva um ponto de interesse na base de dados.", response = ResponseEntity.class)
 	public ResponseEntity<Object> save(
@@ -44,4 +58,5 @@ public class XyIncRestController {
 			@ApiParam(value = "Distância Máxima que os pontos devem estar da referência.") @RequestParam(value = "dMax") Double dMax) {
 		return pointService.findClosestPoints(xCoordinate, yCoordinate, dMax);
 	}
+	
 }
