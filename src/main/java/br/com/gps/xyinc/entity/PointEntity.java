@@ -17,19 +17,19 @@ public class PointEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-    @ApiModelProperty(notes = "ID gerado pela base de dados")
+    @ApiModelProperty(notes = "Generated ID.")
 	private Long id;
 
 	@Column(name = "nm_poi")
-    @ApiModelProperty(notes = "Nome atribuido ao POI (Point Of Interest)", required = true)
+    @ApiModelProperty(notes = "POI (Point of Interest) name.", required = true)
 	private String poiName;
 
 	@Column(name = "x_coordinate")
-    @ApiModelProperty(notes = "Coordenada X do ponto em que o POI está localizado", required = true, dataType = "long" )
+    @ApiModelProperty(notes = "POI's X Coordinate.", required = true, dataType = "long" )
 	private Long xCoordinate;
 
 	@Column(name = "y_coordinate")
-    @ApiModelProperty(notes = "Coordenada Y do ponto em que o POI está localizado", required = true, dataType = "long")
+    @ApiModelProperty(notes = "POI's Y Coordinate.", required = true, dataType = "long")
 	private Long yCoordinate;
 
 	public PointEntity() {

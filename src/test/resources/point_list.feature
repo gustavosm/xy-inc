@@ -23,7 +23,7 @@ Feature: List on Point of Interest (POI)
 		Given two POIs <xCoord1> <yCoord1> <xCoord2> <yCoord2>
 		And insert them in database
 		When the client calls findClosestPoints on PointService to <xCoord> and <yCoord> given <distance>
-		Then the service returns fail message
+		Then the service returns fail status
 		And remove two POIs from database
 	
 	Examples:

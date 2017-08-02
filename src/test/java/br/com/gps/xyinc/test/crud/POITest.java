@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 
 import br.com.gps.xyinc.Application;
 import br.com.gps.xyinc.entity.PointEntity;
-import br.com.gps.xyinc.exception.InvalidPointException;
 import br.com.gps.xyinc.service.PointService;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -83,13 +82,11 @@ public class POITest {
 		entity = new PointEntity("testing", -1L, 5L);
 	}
 
-	@Then("^the service returns fail message$")
+	@Then("^the service returns fail status$")
 	public void the_service_returns_fail_message() throws Throwable {
 		Assert.notNull(response, "Response cannot be null");
 		Assert.isTrue(response.getStatusCode().equals(HttpStatus.BAD_REQUEST),
 				"Expected to return " + HttpStatus.BAD_REQUEST + " but got " + response.getStatusCode());
-		Assert.isTrue((response.getBody() instanceof InvalidPointException),
-				"Expected to get " + InvalidPointException.class + " but got " + response.getBody().getClass());
 
 	}
 

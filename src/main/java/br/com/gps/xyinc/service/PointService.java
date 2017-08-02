@@ -39,7 +39,7 @@ public class PointService {
 
 		} catch (InvalidPointException e) {
 			log.error("Input: " + entity + ", didn't pass through validation: " + e.toString());
-			return ResponseEntity.badRequest().body(e);
+			return ResponseEntity.badRequest().body("Could not save: " + entity + ". Reason: " + e.getMessage());
 		} catch (Exception e) {
 			log.error("Exception thrown: " + e.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -73,7 +73,7 @@ public class PointService {
 			return ResponseEntity.ok(closestPoints);
 		} catch (InvalidPointException e) {
 			log.error("Input: (" + xCoordinate + ", " + yCoordinate + "), didn't pass through validation: " + e.toString());
-			return ResponseEntity.badRequest().body(e);
+			return ResponseEntity.badRequest().body("Could not execute operation. Reason: " + e.getMessage());
 		} catch (Exception e) {
 			log.error("Exception thrown: " + e.getMessage());
 			return ResponseEntity.badRequest().body(e.getMessage());

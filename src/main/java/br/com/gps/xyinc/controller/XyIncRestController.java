@@ -25,37 +25,37 @@ public class XyIncRestController {
 	private PointService pointService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiOperation(value = "Retorna um ponto de interesse, baseado no ID passado")
+	@ApiOperation(value = "Returns a point of interest, based on parameter: pointId")
 	public ResponseEntity<Object> find(@RequestParam("pointId") Long pointId) {
 		return pointService.findOne(pointId);
 	}
 	
 	@DeleteMapping("/{pointId}")
-	@ApiOperation(value = "Remove the point of interest whose id is equal to pointId param.")
+	@ApiOperation(value = "Removes the point of interest whose id is equal to pointId param.")
 	public ResponseEntity<String> delete(@PathVariable Long pointId) {
 		return pointService.remove(pointId);
 	}
 	
 	@PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiOperation(value = "Salva um ponto de interesse na base de dados.", response = ResponseEntity.class)
+	@ApiOperation(value = "Saves a point of interest on data base.", response = ResponseEntity.class)
 	public ResponseEntity<Object> save(
-			@ApiParam(value = "Objeto a ser enviado no corpo da requisição.") @RequestBody PointEntity entity) {
+			@ApiParam(value = "Object to be sent in request body.") @RequestBody PointEntity entity) {
 		return pointService.save(entity);
 	}
 
 	@GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiOperation(value = "Lista todos os pontos de interesse cadastrados na base.", response = ResponseEntity.class)
+	@ApiOperation(value = "Lists all points of interests stored in database.", response = ResponseEntity.class)
 	public ResponseEntity<Object> findAll() {
 		return pointService.findAll();
 	}
 
 	@GetMapping(value = "/findClosest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiOperation(value = "Lista os pontos de interesse cadastrados na base que estão a no maximo dMax"
-			+ " de distancia de (xCoordinate,yCoordinate)", response = ResponseEntity.class)
+	@ApiOperation(value = "Lists ponits of interest stored in database that are at most dMax"
+			+ " far from (xCoordinate,yCoordinate)", response = ResponseEntity.class)
 	public ResponseEntity<Object> findClosestPoints(
-			@ApiParam(value = "Coordenada X do ponto de referência.") @RequestParam(value = "xCoordinate") Long xCoordinate,
-			@ApiParam(value = "Coordenada Y do ponto de referência.") @RequestParam(value = "yCoordinate") Long yCoordinate,
-			@ApiParam(value = "Distância Máxima que os pontos devem estar da referência.") @RequestParam(value = "dMax") Double dMax) {
+			@ApiParam(value = "X Coordinate of reference point.") @RequestParam(value = "xCoordinate") Long xCoordinate,
+			@ApiParam(value = "Y Coordinate of reference point.") @RequestParam(value = "yCoordinate") Long yCoordinate,
+			@ApiParam(value = "Maximun distance that points may be from reference point.") @RequestParam(value = "dMax") Double dMax) {
 		return pointService.findClosestPoints(xCoordinate, yCoordinate, dMax);
 	}
 	
