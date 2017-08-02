@@ -1,7 +1,5 @@
 package br.com.gps.xyinc.utils;
 
-import java.util.InputMismatchException;
-
 import org.springframework.util.StringUtils;
 
 import br.com.gps.xyinc.entity.PointEntity;
@@ -35,9 +33,9 @@ public class ValidationUtils {
 		}
 	}
 	
-	public static void isValidCoordinate(String coordinateName, Long coordinate) throws InputMismatchException {
+	public static void isValidCoordinate(String coordinateName, Long coordinate) throws InvalidPointException {
 		if (coordinate.compareTo(LONG_ZERO) < 0) {
-			throw new InputMismatchException(coordinateName + " cannot be negative.");
+			throw new InvalidPointException(coordinateName + " cannot be negative.");
 		}
 	}
 }

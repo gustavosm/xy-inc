@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.gps.xyinc.entity.PointEntity;
 import br.com.gps.xyinc.service.PointService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/point")
@@ -23,7 +24,8 @@ public class XyIncRestController {
 
 	@PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Salva um ponto de interesse na base de dados.", response = ResponseEntity.class)
-	public ResponseEntity<String> save(@RequestBody PointEntity entity) {
+	public ResponseEntity<Object> save(
+			@ApiParam(value = "Objeto a ser enviado no corpo da requisição.") @RequestBody PointEntity entity) {
 		return pointService.save(entity);
 	}
 
@@ -34,10 +36,12 @@ public class XyIncRestController {
 	}
 
 	@GetMapping(value = "/findClosest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiOperation(value = "Lista todos os pontos de interesse cadastrados na base que estejam a no maximo dMax"
-			+ " de distancia no ponto (xCoordinate, yCoordinate)", response = ResponseEntity.class)
-	public ResponseEntity<Object> findClosestPoints(@RequestParam(value = "xCoordinate") Long xCoordinate,
-			@RequestParam(value = "yCoordinate") Long yCoordinate, @RequestParam(value = "dMax") Double dMax) {
+	@ApiOperation(value = "Lista os pontos de interesse cadastrados na base que estão a no maximo dMax"
+			+ " de distancia de (xCoordinate,yCoordinate)", response = ResponseEntity.class)
+	public ResponseEntity<Object> findClosestPoints(
+			@ApiParam(value = "Coordenada X do ponto de referência.") @RequestParam(value = "xCoordinate") Long xCoordinate,
+			@ApiParam(value = "Coordenada Y do ponto de referência.") @RequestParam(value = "yCoordinate") Long yCoordinate,
+			@ApiParam(value = "Distância Máxima que os pontos devem estar da referência.") @RequestParam(value = "dMax") Double dMax) {
 		return pointService.findClosestPoints(xCoordinate, yCoordinate, dMax);
 	}
 }

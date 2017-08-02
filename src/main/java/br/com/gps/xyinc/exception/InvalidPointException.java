@@ -23,4 +23,8 @@ public class InvalidPointException extends Exception {
 		super(cause);
 	}
 
+	@Override
+	public String toString() {
+		return "InvalidPointException: " + super.getMessage();
+	}
 }

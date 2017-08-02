@@ -21,15 +21,15 @@ public class PointEntity {
 	private Long id;
 
 	@Column(name = "nm_poi")
-    @ApiModelProperty(notes = "Nome atribuido ao POI (Point Of Interest)")
+    @ApiModelProperty(notes = "Nome atribuido ao POI (Point Of Interest)", required = true)
 	private String poiName;
 
 	@Column(name = "x_coordinate")
-    @ApiModelProperty(notes = "Coordenada X do ponto em que o POI está localizado")
+    @ApiModelProperty(notes = "Coordenada X do ponto em que o POI está localizado", required = true, dataType = "long" )
 	private Long xCoordinate;
 
 	@Column(name = "y_coordinate")
-    @ApiModelProperty(notes = "Coordenada Y do ponto em que o POI está localizado")
+    @ApiModelProperty(notes = "Coordenada Y do ponto em que o POI está localizado", required = true, dataType = "long")
 	private Long yCoordinate;
 
 	public PointEntity() {
@@ -74,6 +74,8 @@ public class PointEntity {
 		this.yCoordinate = yCoordinate;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,6 +97,32 @@ public class PointEntity {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	public boolean equalsInFields(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PointEntity other = (PointEntity) obj;
+		if (poiName == null) {
+			if (other.poiName != null)
+				return false;
+		} else if (!poiName.equals(other.poiName))
+			return false;
+		if (xCoordinate == null) {
+			if (other.xCoordinate != null)
+				return false;
+		} else if (!xCoordinate.equals(other.xCoordinate))
+			return false;
+		if (yCoordinate == null) {
+			if (other.yCoordinate != null)
+				return false;
+		} else if (!yCoordinate.equals(other.yCoordinate))
 			return false;
 		return true;
 	}
