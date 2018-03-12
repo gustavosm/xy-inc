@@ -1,5 +1,6 @@
 create database if not exists pointDB;
 
+
 use pointDB;
 create table if not exists tb_point (
 	id int(11) auto_increment,
